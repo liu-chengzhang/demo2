@@ -4,32 +4,43 @@ import com.example.demo.entity.accounttb;
 import com.example.demo.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.example.demo.mapper.LogMapper;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
     @Autowired
     public UserMapper mapper;
-    public List<accounttb> finduser(){
-        return mapper.finduser();
+    @Autowired
+    public LogMapper logMapper;
+    public List<accounttb> findalluser(){
+        return mapper.findalluser();
     }
     public List<Rank> getrank(){
         return  mapper.getrank();
     }
     @Override
-    public boolean login(Integer AccountId,String Password){
+    public boolean login(String AccountId, String Password, HttpServletRequest request){
         if(mapper.login(AccountId,Password)==null)return false;
-        else  return  true;
+        else{
+            logMapper.writelog(AccountId, LocalDateTime.now(),request.getRemoteAddr());
+            return true;
+        }
     }
 
     @Override
-    public boolean register(Integer AccountId, String Password) {
-        mapper.register(AccountId,Password);
+    public boolean register(String AccountId, String Password,String EMail) {
+        mapper.register(AccountId,Password,EMail);
         return true;
     }
     @Override
-    public accounttb Userinfo(Integer id){
+    public accounttb Userinfo(String id){
         return mapper.Userinfo(id);
     };
+    @Override
+    public boolean forgetpassword(String AccountId,String Password){
+        return mapper.forgetpassword(AccountId,Password);
+    }
 }

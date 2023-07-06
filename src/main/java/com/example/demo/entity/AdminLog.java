@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rank {
-    String AccountId;
-    String NickName;
-    int totaltime;
-    int count;
+public class AdminLog {
+    LocalDate date;
+    int clockincount;
+    int logcount;
 }

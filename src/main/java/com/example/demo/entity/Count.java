@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rank {
-    String AccountId;
-    String NickName;
-    int totaltime;
-    int count;
+public class Count {
+    public int usercount;
+    public int clockincount;
+    public float clockintime;
+
 }
